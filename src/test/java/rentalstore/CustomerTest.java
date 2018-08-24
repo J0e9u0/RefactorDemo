@@ -50,12 +50,38 @@ public class CustomerTest {
         customer.addRental(rental);
         // When
         String statement = customer.htmlStatement();
-        System.out.println(statement);
+        //System.out.println(statement);
         // Then
         String expected = "<H1>Rentals for <EM>Neo</EM></H1><P>\n" +
                 "Roman Holiday: 6.0<BR>\n" +
                 "<P>You owe<EM>6.0</EM><P>\n" +
                 "On this rental you earned <EM>1.5</EM> frequent renter points<P>";
+        Assert.assertEquals(expected, statement);
+    }
+
+    @Test
+    public void should_return_correct_html_statement_given_customer_rent_three_literary_movie_for_4_day(){
+        // Given
+        Movie movie = new Movie("Roman Holiday",Movie.LITERARY);
+        Movie movie2 = new Movie("The Bridge of Madison County",Movie.LITERARY);
+        Movie movie3 = new Movie("Fly",Movie.LITERARY);
+        Rental rental = new Rental(movie, 4);
+        Rental rental2 = new Rental(movie2, 4);
+        Rental rental3 = new Rental(movie3, 4);
+        Customer customer = new Customer("Neo");
+        customer.addRental(rental);
+        customer.addRental(rental2);
+        customer.addRental(rental3);
+        // When
+        String statement = customer.htmlStatement();
+        //System.out.println(statement);
+        // Then
+        String expected = "<H1>Rentals for <EM>Neo</EM></H1><P>\n" +
+                "Roman Holiday: 6.0<BR>\n" +
+                "The Bridge of Madison County: 6.0<BR>\n" +
+                "Fly: 6.0<BR>\n" +
+                "<P>You owe<EM>18.0</EM><P>\n" +
+                "On this rental you earned <EM>4.5</EM> frequent renter points<P>";
         Assert.assertEquals(expected, statement);
     }
 }
