@@ -6,6 +6,7 @@ import java.util.Vector;
 public class Customer {
     private String name;
     private Vector rentals = new Vector();
+    private Statement statement;
 
     public Customer(String name) {
         this.name = name;
@@ -19,28 +20,9 @@ public class Customer {
         return name;
     }
 
-    private String initHeader(){
-        return "Rental Record for " + getName() + "\n";
-    }
-
-    private String initFooter(){
-        String footer = "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
-        footer += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) + " frequent renter points";
-        return footer;
-    }
-
     public String statement() {
-        Enumeration rentals = this.rentals.elements();
-        String result = this.initHeader();
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            //show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
-        }
-
-        //add footer lines
-        result += this.initFooter();
-        return result;
+        statement = new TextStatement(this.name, this.rentals);
+        return statement.getStatement();
     }
 
     private String initHtmlHeader(){
