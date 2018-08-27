@@ -25,27 +25,10 @@ public class Customer {
         return statement.getStatement();
     }
 
-    private String initHtmlHeader(){
-        return "<H1>Rentals for <EM>" + getName() + "</EM></H1><P>\n";
-    }
-
-    private String initHtmlFooter(){
-        String footer = "<P>You owe<EM>" + String.valueOf(getTotalCharge()) + "</EM><P>\n";
-        footer += "On this rental you earned <EM>" + String.valueOf(getTotalFrequentRenterPoints()) +
-                "</EM> frequent renter points<P>";
-        return footer;
-    }
 
     public String htmlStatement() {
-        Enumeration rentals = this.rentals.elements();
-        String result = this.initHtmlHeader();
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            result += each.getMovie().getTitle() + ": " + String.valueOf(each.getCharge()) + "<BR>\n";
-        }
-        //add footer lines
-        result += this.initHtmlFooter();
-        return result;
+        statement = new HtmlStatement(this.name, this.rentals);
+        return statement.getStatement();
     }
 
     double getTotalCharge() {

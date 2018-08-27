@@ -5,7 +5,7 @@ import java.util.Vector;
 
 public abstract class Statement {
 
-    private String name;
+    protected String name;
 
     public String getName() {
         return name;
@@ -20,7 +20,7 @@ public abstract class Statement {
         this.rentals = rentals;
     }
 
-    private Vector rentals;
+    protected Vector rentals;
 
     public String getStatement() {
         Enumeration rentals = this.rentals.elements();
